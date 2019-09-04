@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wcs.mall.address.dao.MallAddressDao">
+
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.wcs.mall.address.entity.MallAddress">
+        <result column="user_id" property="userId"/>
+        <result column="receiver_name" property="receiverName"/>
+        <result column="telephone" property="telephone"/>
+        <result column="region" property="region"/>
+        <result column="detail_address" property="detailAddress"/>
+        <result column="status" property="status"/>
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del" property="del"/>
+    </resultMap>
+
+    <sql id="all_column">
+        user_id,
+        receiver_name,
+        telephone,
+        region,
+        detail_address,
+        status,
+        id,
+        create_time,
+        update_time,
+        del
+    </sql>
+
+    <update id="updateStatusByUserId" parameterType="string">
+        UPDATE
+            address
+        SET status =
+                CASE
+                    WHEN
+                        id = #{id}
+                        THEN
+                        1
+                    ELSE
+                        0
+                    END
+        WHERE user_id = #{userId}
+    </update>
+
+</mapper>
