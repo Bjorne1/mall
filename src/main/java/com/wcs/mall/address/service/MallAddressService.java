@@ -34,7 +34,7 @@ public class MallAddressService {
     }
 
     public void update(MallAddress mallAddress) {
-        Optional<MallAddress> addressOptional = jpaMallAddressDao.findById(mallAddress.getId());
+        Optional<MallAddress> addressOptional = jpaMallAddressDao.findByIdAndDel(mallAddress.getId(), Constant.NORMAL_DATA);
         if (addressOptional.isPresent()) {
             MallAddress address = addressOptional.get();
             BeanUtil.copyProperties(mallAddress, address);
@@ -57,7 +57,7 @@ public class MallAddressService {
     }
 
     public void delete(String id) {
-        Optional<MallAddress> addressOptional = jpaMallAddressDao.findById(id);
+        Optional<MallAddress> addressOptional = jpaMallAddressDao.findByIdAndDel(id, Constant.NORMAL_DATA);
         if (addressOptional.isPresent()) {
             MallAddress address = addressOptional.get();
             address.setDel(Constant.DELETE_DATA);
