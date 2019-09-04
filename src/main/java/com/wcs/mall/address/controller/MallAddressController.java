@@ -2,6 +2,7 @@ package com.wcs.mall.address.controller;
 
 import com.wcs.custom.permission.Permission;
 import com.wcs.custom.permission.PermissionType;
+import com.wcs.custom.util.TokenUtil;
 import com.wcs.mall.address.entity.MallAddress;
 import com.wcs.mall.address.service.MallAddressService;
 import com.wcs.mall.base.entity.HttpStatusCode;
@@ -13,6 +14,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Description:
@@ -29,13 +32,14 @@ public class MallAddressController {
 
     @ApiOperation(value = "获取收获地址", tags = {"收获地址"})
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "userId", required = true, dataType = "long"),
             @ApiImplicitParam(name = "page", value = "page", required = true, dataType = "int"),
             @ApiImplicitParam(name = "size", value = "size", required = true, dataType = "int")
     })
     @GetMapping("/{username}/address")
     @Permission(type = PermissionType.USER_PERMISSION)
-    public ResultBean<Page<MallAddress>> findAll(@PathVariable String username, String userId, int page, int size) {
+    public ResultBean<Page<MallAddress>> findAll(@PathVariable String username, HttpServletRequest request, int page, int size) {
+        String token = request.getHeader("Authorization");
+        String userId = TokenUtil.getUserId(token);
         Page<MallAddress> mallAddressList = mallAddressService.findAll(userId, page, size);
         return new ResultBean<>(HttpStatusCode.OK.value(), HttpStatusCode.OK.getReasonPhrase(), mallAddressList);
     }

@@ -23,13 +23,6 @@ public class TokenUtil {
         mallUser.setName("wcs");
         String token = getToken(mallUser);
         System.out.println(token);
-        DecodedJWT decodedJWT = verifyToken(token);
-        System.out.println(decodedJWT.getHeader());
-        System.out.println(decodedJWT.getPayload());
-        System.out.println(decodedJWT.getSignature());
-        System.out.println(decodedJWT.getExpiresAt());
-        System.out.println(decodedJWT.getClaim("id").asLong());
-        System.out.println(decodedJWT.getClaim("username").asString());
     }
 
     public static String getToken(MallUser mallUser) {
@@ -63,5 +56,11 @@ public class TokenUtil {
             //Invalid signature/claims
             return null;
         }
+    }
+
+    public static String getUserId(String token) {
+        DecodedJWT decodedJwt = TokenUtil.verifyToken(token);
+        assert decodedJwt != null;
+        return decodedJwt.getClaim("id").asString();
     }
 }
