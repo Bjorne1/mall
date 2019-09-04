@@ -33,14 +33,7 @@
         UPDATE
             address
         SET status =
-                CASE
-                    WHEN
-                        id = #{id}
-                        THEN
-                        1
-                    ELSE
-                        0
-                    END
+                IF(id = #{id}, 1, 0)
         WHERE user_id = #{userId}
     </update>
 
