@@ -1,5 +1,6 @@
 package com.wcs.mall.user.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wcs.custom.util.IdUtil;
 import com.wcs.custom.util.TokenUtil;
 import com.wcs.mall.base.entity.Constant;
@@ -47,11 +48,32 @@ public class MallUserService {
         }
     }
 
-    public String login(String username, String password) {
+    /**
+     * 用户登录，返回token和用户信息json
+     */
+    public JSONObject login(String username, String password) {
         MallUser mallUser = mallUserDao.findByUsernameAndDel(username, Constant.NORMAL_DATA);
         if (mallUser != null && mallUser.getPassword().equals(password)) {
-            return TokenUtil.getToken(mallUser);
+            String token = TokenUtil.getToken(mallUser);
+            JSONObject userInfos = filterUserInfos(mallUser);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("user", userInfos);
+            jsonObject.put("token", token);
+            return jsonObject;
         }
-        return "";
+        return null;
+    }
+
+    /**
+     * 过滤用户信息
+     */
+    private JSONObject filterUserInfos(MallUser mallUser) {
+        JSONObject json = new JSONObject();
+        json.put("id", mallUser.getId());
+        json.put("username", mallUser.getUsername());
+        json.put("name", mallUser.getName());
+        json.put("sex", mallUser.getSex());
+        json.put("update_time", mallUser.getUpdateTime());
+        return json;
     }
 }
