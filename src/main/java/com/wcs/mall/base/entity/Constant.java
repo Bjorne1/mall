@@ -14,5 +14,7 @@ public class Constant {
     public static final int DEFAULT_ADDRESS = 1; //默认地址
     public static final int NORMAL_ADDRESS = 0; //默认地址
 
-
+    // 订单
+    public static final int STATUS_DELETED_ORDER = 6; // 已删除订单
+    public static final int STATUS_ALL_ORDER = 0; // 所有订单
 }
