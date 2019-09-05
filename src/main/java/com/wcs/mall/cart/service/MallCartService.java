@@ -54,7 +54,7 @@ public class MallCartService {
     }
 
     public void updateProductCount(String id, int productCount) {
-        Optional<MallCart> optional = jpaMallCartDao.findByIdAndDel(id, Constant.NORMAL_DATA);
+        Optional<MallCart> optional = jpaMallCartDao.findById(id);
         if (optional.isPresent()) {
             MallCart mallCart = optional.get();
             mallCart.setProductCount(productCount);
