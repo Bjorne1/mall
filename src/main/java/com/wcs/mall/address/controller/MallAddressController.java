@@ -47,7 +47,7 @@ public class MallAddressController {
     @ApiOperation(value = "新增收获地址", tags = {"收获地址"})
     @PostMapping("/{username}/address")
     @Permission(type = PermissionType.USER_PERMISSION)
-    public ResultBean<Void> update(@PathVariable String username, @RequestBody MallAddress mallAddress) {
+    public ResultBean<Void> save(@PathVariable String username, @RequestBody MallAddress mallAddress) {
         mallAddressService.save(mallAddress);
         return new ResultBean<>(HttpStatusCode.CREATED.value(), HttpStatusCode.CREATED.getReasonPhrase());
     }
