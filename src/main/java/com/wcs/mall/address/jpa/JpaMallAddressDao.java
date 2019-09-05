@@ -6,8 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 /**
  * @Description:
  * @Author: WenChangSheng
@@ -18,5 +16,4 @@ public interface JpaMallAddressDao extends JpaRepository<MallAddress, String> {
 
     Page<MallAddress> findAllByUserIdAndDel(Pageable pageable, String userId, int del);
 
-    Optional<MallAddress> findByIdAndDel(String id, int del);
 }
