@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Table(name = "address")
 public class MallAddress extends BaseEntity {
     private String userId;
-    @Size(max = 10, message = "收件人名称为1-10")
+    @Size(max = 10, message = "收件人名称长度为1-10位")
     @NotBlank(message = "收件人名称不能为空")
     private String receiverName;
     @NotBlank(message = "手机号不能为空")
@@ -23,7 +23,7 @@ public class MallAddress extends BaseEntity {
     @NotBlank(message = "省市县不能为空")
     private String region;
     @NotBlank(message = "详细地址不能为空")
-    @Size(message = "详细地址长度为1-50位")
+    @Size(max = 50,message = "详细地址长度为1-50位")
     private String detailAddress;
     private int status;
 
