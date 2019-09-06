@@ -1,5 +1,6 @@
 package com.wcs.mall.cart.service;
 
+import com.wcs.custom.util.IdUtil;
 import com.wcs.mall.base.entity.Constant;
 import com.wcs.mall.cart.entity.MallCart;
 import com.wcs.mall.cart.jpa.JpaMallCartDao;
@@ -33,6 +34,7 @@ public class MallCartService {
     }
 
     public void save(String userId, String productId) {
+        //TODO 加入购物车需检查库存
         MallCart mallCart = jpaMallCartDao.findByUserIdAndProductIdAndDel(userId, productId, Constant.NORMAL_DATA);
         // 购物车已存在该商品，则数量加1
         if (mallCart != null) {
@@ -43,6 +45,7 @@ public class MallCartService {
             if (productOptional.isPresent()) {
                 MallProduct mallProduct = productOptional.get();
                 mallCart = new MallCart();
+                mallCart.setId(IdUtil.nextId());
                 mallCart.setUserId(userId);
                 mallCart.setProductId(productId);
                 mallCart.setProductName(mallProduct.getName());
@@ -72,6 +75,6 @@ public class MallCartService {
     }
 
     public void deleteAllByUserId(String userId) {
-        jpaMallCartDao.deleteByUserId(userId);
+        jpaMallCartDao.updateDelByUserIdAndDel(userId,Constant.DELETE_DATA);
     }
 }

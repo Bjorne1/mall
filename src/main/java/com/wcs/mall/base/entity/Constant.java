@@ -17,4 +17,6 @@ public class Constant {
     // 订单
     public static final int STATUS_DELETED_ORDER = 6; // 已删除订单
     public static final int STATUS_ALL_ORDER = 0; // 所有订单
+    public static final int STATUS_TO_BE_PAY = 1; // 待付款
+    public static final int STATUS_FINISHED = 5; //已完成
 }

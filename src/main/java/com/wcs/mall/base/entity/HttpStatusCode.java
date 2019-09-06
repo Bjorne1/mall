@@ -9,9 +9,9 @@ public enum HttpStatusCode {
 
     OK(200, "OK"),
 
-    CREATED(201, "新建或修改数据成功"),
+    CREATED(201, "新建或修改成功"),
 
-    NO_CONTENT(204, "删除数据成功"),
+    NO_CONTENT(204, "删除成功"),
 
     UNAUTHORIZED(401, "用户名或密码错误"),
 
@@ -22,6 +22,8 @@ public enum HttpStatusCode {
     LOGIN_FAIL(501, "登录失败，请稍后重试"),
 
     UNKNOWN(777, "未知错误"),
+
+    DELETE_FAIL(666, "删除失败"),
 
     USERNAME_IS_DUPLICATE(888, "用户名已存在"),
 

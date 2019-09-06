@@ -74,7 +74,7 @@ public class MallCartController {
     @ApiOperation(value = "清空购物车", tags = {"购物车"})
     @DeleteMapping("/{username}/cart")
     @Permission(type = PermissionType.USER_PERMISSION)
-    public ResultBean<Void> deleteAll(@PathVariable String id, @PathVariable String username, HttpServletRequest request) {
+    public ResultBean<Void> deleteAll(@PathVariable String username, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String userId = TokenUtil.getUserId(token);
         mallCartService.deleteAllByUserId(userId);

@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "product")
 public class MallProduct extends BaseEntity {
+    private int categoryId;
     private String name;
     private BigDecimal price;
     private int sales;

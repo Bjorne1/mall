@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 /**
  * @Description:
@@ -13,13 +14,14 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@Table(name = "order")
+@Table(name = "mall_order")
 public class MallOrder extends BaseEntity {
     private String userId;
-    private String productCount;
-    private String totalPrice;
-    private String coupon;
-    private String realPrice;
+    private String productName;
+    private int productCount;
+    private BigDecimal totalPrice;
+    private BigDecimal coupon;
+    private BigDecimal realPrice;
     private int status;
     private String receivedName;
     private String telephone;

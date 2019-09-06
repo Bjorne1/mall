@@ -11,14 +11,12 @@ import java.util.List;
  */
 @Data
 public class PageResultBean<T> {
-    private boolean flag; //是否成功
     private int code; //返回码
     private String message; //返回信息
     private List<T> data; //返回数据
     private int totalCount; //总数量
 
-    public PageResultBean(boolean flag, int code, String message, List<T> data, int totalCount) {
-        this.flag = flag;
+    public PageResultBean(int code, String message, List<T> data, int totalCount) {
         this.code = code;
         this.message = message;
         this.data = data;
