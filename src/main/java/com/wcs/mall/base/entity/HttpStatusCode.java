@@ -13,6 +13,8 @@ public enum HttpStatusCode {
 
     NO_CONTENT(204, "删除成功"),
 
+    BAD_REQUEST(400, "新建或修改成功"),
+
     UNAUTHORIZED(401, "用户名或密码错误"),
 
     FORBIDDEN(403, "权限不足"),

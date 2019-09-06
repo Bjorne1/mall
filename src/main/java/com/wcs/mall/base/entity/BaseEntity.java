@@ -1,6 +1,5 @@
 package com.wcs.mall.base.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -26,6 +25,5 @@ public class BaseEntity {
     private Date createTime;
     @LastModifiedDate
     private Date updateTime;
-    @JsonIgnore
     private int del;
 }

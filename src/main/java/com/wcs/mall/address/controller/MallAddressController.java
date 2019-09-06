@@ -13,9 +13,12 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * @Description:
@@ -47,7 +50,10 @@ public class MallAddressController {
     @ApiOperation(value = "新增收获地址", tags = {"收获地址"})
     @PostMapping("/{username}/address")
     @Permission(type = PermissionType.USER_PERMISSION)
-    public ResultBean<Void> save(@PathVariable String username, @RequestBody MallAddress mallAddress) {
+    public ResultBean<Void> save(@PathVariable String username, @RequestBody @Valid MallAddress mallAddress, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResultBean<>(HttpStatusCode.BAD_REQUEST.value(), Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+        }
         mallAddressService.save(mallAddress);
         return new ResultBean<>(HttpStatusCode.CREATED.value(), HttpStatusCode.CREATED.getReasonPhrase());
     }
@@ -55,7 +61,10 @@ public class MallAddressController {
     @ApiOperation(value = "修改收获地址", tags = {"收获地址"})
     @PutMapping("/{username}/address/{id}")
     @Permission(type = PermissionType.USER_PERMISSION)
-    public ResultBean<Void> update(@PathVariable String id, @PathVariable String username, @RequestBody MallAddress mallAddress) {
+    public ResultBean<Void> update(@PathVariable String id, @PathVariable String username, @RequestBody MallAddress mallAddress, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResultBean<>(HttpStatusCode.BAD_REQUEST.value(), Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+        }
         mallAddress.setId(id);
         mallAddressService.update(mallAddress);
         return new ResultBean<>(HttpStatusCode.CREATED.value(), HttpStatusCode.CREATED.getReasonPhrase());
