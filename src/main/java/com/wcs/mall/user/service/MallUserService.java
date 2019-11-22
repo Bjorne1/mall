@@ -1,6 +1,7 @@
 package com.wcs.mall.user.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wcs.custom.util.BeanUtil;
 import com.wcs.custom.util.IdUtil;
 import com.wcs.custom.util.TokenUtil;
 import com.wcs.mall.base.entity.Constant;
@@ -36,7 +37,11 @@ public class MallUserService {
 
     public void update(MallUser mallUser) {
         Optional<MallUser> mallUserOptional = mallUserDao.findById(mallUser.getId());
-        mallUserOptional.ifPresent(user -> mallUserDao.save(user));
+        if (mallUserOptional.isPresent()) {
+            MallUser user = mallUserOptional.get();
+            BeanUtil.copyProperties(mallUser,user);
+            mallUserDao.save(user);
+        }
     }
 
     public void delete(String id) {
