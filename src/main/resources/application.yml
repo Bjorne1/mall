@@ -1,7 +1,7 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://47.106.8.241:3306/mall?characterEncoding=UTF8&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://139.9.112.174:3306/mall?characterEncoding=UTF8&serverTimezone=Asia/Shanghai
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: root
@@ -22,9 +22,9 @@ spring:
   jpa:
     properties:
       hibernate:
-        show_sql: false
-        format_sql: false
-        use_sql_comments: false
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
