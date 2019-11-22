@@ -33,17 +33,17 @@ public class MallUserController {
             @ApiImplicitParam(name = "size", value = "size", required = true, dataType = "int")
     })
     @GetMapping
-    @Permission(type=PermissionType.LOGIN_PERMISSION)
+    @Permission(type = PermissionType.LOGIN_PERMISSION)
     public ResultBean<Page<MallUser>> findAll(int page, int size) {
         Page<MallUser> mallUserList = mallUserService.findAll(page, size);
-        return new ResultBean<>(HttpStatusCode.OK.value(), HttpStatusCode.OK.getReasonPhrase(),mallUserList);
+        return new ResultBean<>(HttpStatusCode.OK.value(), HttpStatusCode.OK.getReasonPhrase(), mallUserList);
     }
 
     @ApiOperation(value = "新增用户", tags = {"用户信息"})
     @PostMapping
     @Permission(type = PermissionType.LOGIN_PERMISSION)
-    public ResultBean<Void> update(@RequestBody MallUser mallUser) {
-        mallUserService.save(mallUser);
+    public ResultBean<Void> add(@RequestBody MallUser mallUser) {
+        mallUserService.add(mallUser);
         return new ResultBean<>(HttpStatusCode.CREATED.value(), HttpStatusCode.CREATED.getReasonPhrase());
     }
 

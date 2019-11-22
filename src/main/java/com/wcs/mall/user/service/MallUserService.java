@@ -30,7 +30,7 @@ public class MallUserService {
         return mallUserDao.findAllByDel(pageable, Constant.NORMAL_DATA);
     }
 
-    public void save(MallUser mallUser) {
+    public void add(MallUser mallUser) {
         mallUser.setId(IdUtil.nextId());
         mallUserDao.save(mallUser);
     }

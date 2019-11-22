@@ -33,3 +33,5 @@ logging:
     com.wcs.mall: DEBUG
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
+  configuration:
+    map-underscore-to-camel-case: true

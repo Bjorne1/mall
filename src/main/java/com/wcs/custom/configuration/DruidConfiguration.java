@@ -1,8 +1,11 @@
 package com.wcs.custom.configuration;
 
+import com.alibaba.druid.filter.Filter;
+import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.google.common.collect.Lists;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -22,7 +25,9 @@ public class DruidConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.druid")
     public DataSource dataSource() {
-        return new DruidDataSource();
+        DruidDataSource dataSource = new DruidDataSource();
+        dataSource.setProxyFilters(Lists.newArrayList(statFilter()));
+        return dataSource;
     }
 
     @Bean
@@ -41,7 +46,7 @@ public class DruidConfiguration {
     }
 
     @Bean
-    public FilterRegistrationBean<WebStatFilter> statFilter() {
+    public FilterRegistrationBean<WebStatFilter> webStatFilter() {
         //创建过滤器
         FilterRegistrationBean<WebStatFilter> filterRegistrationBean = new FilterRegistrationBean<>(new WebStatFilter());
         //设置过滤器过滤路径
@@ -49,5 +54,19 @@ public class DruidConfiguration {
         //忽略过滤的形式
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
+    }
+
+    @Bean
+    public Filter statFilter() {
+        StatFilter filter = new StatFilter();
+        filter.setSlowSqlMillis(3000);
+        filter.setLogSlowSql(true);
+        filter.setMergeSql(true);
+        return filter;
+    }
+
+    @Bean
+    public ServletRegistrationBean<StatViewServlet> servletRegistrationBean() {
+        return new ServletRegistrationBean<>(new StatViewServlet(), "/druid/*");
     }
 }
