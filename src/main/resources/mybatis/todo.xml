@@ -19,7 +19,7 @@
         del = 0
     </select>
 
-    <select id="findOne" parameterType="String" resultType="com.wcs.mall.todo.entity.MallTodo">
+    <select id="findOne" parameterType="String" resultType="mallTodo">
         SELECT
         <include refid="todoColumns"/>
         FROM
