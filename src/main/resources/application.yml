@@ -32,5 +32,5 @@ logging:
   level:
     com.wcs.mall: DEBUG
 mybatis:
-  mapper-locations: classpath:mybatis/*.xml
-  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
