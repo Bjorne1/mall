@@ -28,7 +28,7 @@ public class MallUserController {
     @PutMapping("/{username}")
     @Permission(type = PermissionType.USER_PERMISSION)
     public ResultBean<Void> update(@PathVariable String username, @RequestBody MallUser mallUser) {
-
+        mallUserService.update(mallUser);
         return new ResultBean<>(HttpStatusCode.CREATED.value(), HttpStatusCode.CREATED.getReasonPhrase());
     }
 
