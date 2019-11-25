@@ -3,13 +3,17 @@ package com.wcs.custom.configuration;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.wcs.custom.mybatis.DynamicDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Description:
@@ -19,10 +23,25 @@ import javax.sql.DataSource;
 @Configuration
 public class DruidConfiguration {
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.druid")
-    public DataSource dataSource() {
+    @Bean(name = "mall")
+    @ConfigurationProperties(prefix = "spring.datasource.druid.mall")
+    public DataSource mallDruid() {
         return new DruidDataSource();
+    }
+
+    @Bean(name = "sky")
+    @ConfigurationProperties(prefix = "spring.datasource.druid.sky")
+    public DataSource skyDruid() {
+        return new DruidDataSource();
+    }
+
+    @Bean
+    @Primary
+    public DynamicDataSource dataSource() {
+        Map<String, DataSource> targetDataSources = new HashMap<>();
+        targetDataSources.put("mall", mallDruid());
+        targetDataSources.put("sky", skyDruid());
+        return new DynamicDataSource(mallDruid(), targetDataSources);
     }
 
     @Bean
